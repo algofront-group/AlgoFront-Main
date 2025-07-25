@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Our Projects - AlgoFront</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: #333;
+    }
+
+    header {
+      background: linear-gradient(to right, #f6c2a7, #d191ea);
+      padding: 1rem 2rem;
+      text-align: center;
+      color: white;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2rem;
+    }
+
+    .project-section {
+      padding: 2rem;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .project-card {
+      border: 1px solid #eee;
+      border-radius: 12px;
+      padding: 1.2rem;
+      background-color: #fafafa;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      transition: transform 0.2s ease-in-out;
+    }
+
+    .project-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .project-card h3 {
+      margin-top: 0;
+      color: #000;
+    }
+
+    .desc {
+      font-size: 0.95rem;
+      color: #555;
+    }
+
+    .view-more-btn {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 0.5rem 1rem;
+      background: linear-gradient(to right, #f6c2a7, #d191ea);
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: 600;
+    }
+
+    .view-more-btn:hover {
+      opacity: 0.9;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🚀 Our Projects</h1>
+    <p>Crafted with excellence by AlgoFront core team & talented interns</p>
+  </header>
+
+  <section class="project-section">
+    <div id="project-container" class="project-grid"></div>
+  </section>
+
+  <script>
+    const projects = [
+      {
+        title: "CargoWise Logistics Platform",
+        description: "A multi-tenant logistics automation platform for global freight tracking and document workflow integration.",
+        builtBy: "Core Development Team (AlgoFront)",
+        featuredInterns: [],
+        contributorLink: "",
+        internalOnly: true
+      },
+      {
+        title: "Job Portal for Exporters",
+        description: "A MERN stack-based job portal designed for export companies to post jobs and manage applications.",
+        builtBy: "Intern Group 2 (AlgoFront)",
+        featuredInterns: ["Ritika S.", "Aman K."],
+        contributorLink: "projects/job-portal/contributors.md"
+      },
+      {
+        title: "Fintech Onboarding System",
+        description: "A secure KYC document handling and e-sign workflow app for finance companies.",
+        builtBy: "Core Development Team (AlgoFront)",
+        featuredInterns: [],
+        contributorLink: "",
+        internalOnly: true
+      },
+      {
+        title: "CRM Dashboard for Wholesalers",
+        description: "Customer tracking and lead pipeline software for B2B product sellers.",
+        builtBy: "Intern Group 4 (AlgoFront)",
+        featuredInterns: ["Ravi G.", "Sneha J."],
+        contributorLink: "projects/crm/contributors.md"
+      },
+      {
+        title: "Smart IoT Device Panel",
+        description: "A backend system for monitoring and alerting IoT sensor nodes in real-time using Node-RED and Kafka.",
+        builtBy: "Core Development Team (AlgoFront)",
+        featuredInterns: [],
+        contributorLink: "",
+        internalOnly: true
+      },
+      {
+        title: "EduLearn Video Portal",
+        description: "A learning management system for video lectures, assignments, and mentor feedback.",
+        builtBy: "Intern Group 1 (AlgoFront)",
+        featuredInterns: ["Fatima Z.", "Anuj T."],
+        contributorLink: "projects/edulearn/contributors.md"
+      },
+      {
+        title: "Salesforce Alternative",
+        description: "Our proprietary lightweight CRM tailored for SMEs with integrated WhatsApp outreach.",
+        builtBy: "Core Development Team (AlgoFront)",
+        featuredInterns: [],
+        contributorLink: "",
+        internalOnly: true
+      },
+      {
+        title: "Transport Booking SaaS",
+        description: "A booking + dispatch + payment SaaS app for intercity truckers.",
+        builtBy: "Core Development Team (AlgoFront)",
+        featuredInterns: [],
+        contributorLink: "",
+        internalOnly: true
+      },
+      {
+        title: "Freelancer Timesheet Tool",
+        description: "Simple and intuitive hours logging tool integrated with Notion and Slack APIs.",
+        builtBy: "Core Development Team (AlgoFront)",
+        featuredInterns: [],
+        contributorLink: "",
+        internalOnly: true
+      },
+      {
+        title: "Invoicing Engine for Exporters",
+        description: "Invoice generation with automatic GST breakdowns and shipping document bundling.",
+        builtBy: "Core Development Team (AlgoFront)",
+        featuredInterns: [],
+        contributorLink: "",
+        internalOnly: true
+      }
+    ];
+
+    function renderProjects() {
+      const container = document.getElementById("project-container");
+      container.innerHTML = "";
+
+      projects.forEach(p => {
+        container.innerHTML += `
+          <div class="project-card">
+            <h3>${p.title}</h3>
+            <p class="desc">${p.description}</p>
+            <p><strong>Built By:</strong> ${p.builtBy}</p>
+            ${p.featuredInterns?.length ? `<p><strong>Featured Interns:</strong> ${p.featuredInterns.join(", ")}</p>` : ""}
+            ${
+              p.internalOnly
+                ? `<p style="color:#888;font-style:italic;">🚫 Internal project - not available for public access</p>`
+                : `<a class="view-more-btn" href="${p.contributorLink}" target="_blank">View More</a>`
+            }
+          </div>
+        `;
+      });
+    }
+
+    window.onload = renderProjects;
+  </script>
+</body>
+</html>

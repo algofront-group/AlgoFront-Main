@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dependent Dropdowns</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px;
+      font-family: Arial, sans-serif;
+      box-sizing: border-box;
+    }
+
+    .wrapper {
+      border: 2px solid #444;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      max-width: 600px;
+      width: 100%;
+    }
+
+    .message {
+      font-size: 16px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    .container > div {
+      flex: 1 1 200px;
+      min-width: 150px;
+    }
+
+    select, label {
+      display: block;
+      margin-bottom: 10px;
+      width: 100%;
+    }
+
+    .link-container {
+      margin-top: 20px;
+    }
+
+    .link-container span {
+      margin-right: 10px;
+      font-weight: bold;
+    }
+
+    .link-container a {
+      font-size: 13px;
+      font-weight: normal;
+      color: #0077cc;
+      margin-left: 5px;
+      text-decoration: none;
+    }
+
+    @media (max-width: 480px) {
+      .message {
+        font-size: 14px;
+      }
+
+      .link-container {
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="wrapper">
+    <div class="message">
+      View individual contributions by selecting a contributor
+    </div>
+
+    <div class="container">
+      <div>
+        <label for="projectType">Select Role:</label>
+        <select id="projectType">
+          <option value="">-- Select --</option>
+          <option value="hrs">HRs</option>
+          <option value="designers">Designers</option>
+          <option value="developers">Developers</option>
+          <option value="interns">Interns</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="role">Names:</label>
+        <select id="role">
+          <option value="">-- Select --</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="link-container" id="linkContainer"></div>
+  </div>
+
+  <script>
+    const projectTypeSelect = document.getElementById('projectType');
+    const roleSelect = document.getElementById('role');
+    const linkContainer = document.getElementById('linkContainer');
+
+    const roles = {
+      hrs: [
+        { name: 'HR 1', link: 'https://example.com/hr1' },
+        { name: 'HR 2', link: 'https://example.com/hr2' },
+        { name: 'HR 3', link: 'https://example.com/hr3' }
+      ],
+      designers: [
+        { name: 'Front Developer 1', link: 'https://example.com/designer1' },
+        { name: 'Front Developer 2', link: 'https://example.com/designer2' },
+        { name: 'Front Developer 3', link: 'https://example.com/designer3' }
+      ],
+      developers: [
+        { name: 'Jidnyesh Chaudhari', link: 'https://gitlab.com/algofront-group/cargowise_docs_only/-/blob/main/contributors.md?ref_type=heads' },
+        { name: 'Harshit Patil', link: 'https://gitlab.com/algofront-group/cargowise_docs_only/-/blob/main/contributors.md?ref_type=heads' },
+        { name: 'Durva Kelkar', link: 'https://gitlab.com/algofront-group/cargowise_docs_only/-/blob/main/contributors.md?ref_type=heads' }
+      ],
+      interns: [
+        { name: 'Aryan Kulkarni', link: 'https://gitlab.com/algofront-group/cargowise_docs_only/-/blob/main/contributors.md?ref_type=heads' },
+        { name: 'Meena Das', link: 'https://gitlab.com/algofront-group/cargowise_docs_only/-/blob/main/contributors.md?ref_type=heads' },
+        { name: 'Kunal Sharma', link: 'https://gitlab.com/algofront-group/cargowise_docs_only/-/blob/main/contributors.md?ref_type=heads' }
+      ]
+    };
+
+    function populateNames(roleKey) {
+      roleSelect.innerHTML = '<option value="">-- Select --</option>';
+      linkContainer.innerHTML = '';
+
+      if (roles[roleKey]) {
+        roles[roleKey].forEach((person, index) => {
+          const option = document.createElement('option');
+          option.value = index;
+          option.text = person.name;
+          roleSelect.appendChild(option);
+        });
+      }
+    }
+
+    projectTypeSelect.addEventListener('change', function () {
+      populateNames(this.value);
+    });
+
+    roleSelect.addEventListener('change', function () {
+      const roleType = projectTypeSelect.value;
+      const index = this.value;
+      const person = roles[roleType]?.[index];
+
+      linkContainer.innerHTML = person
+        ? `<span>${person.name}</span><a href="${person.link}" target="_blank">Click here</a>`
+        : '';
+    });
+  </script>
+
+</body>
+</html>
